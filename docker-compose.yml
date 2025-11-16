@@ -10,6 +10,7 @@ services:
       - "9001:9001" #gRPC port
     environment:
       - GRPC_SERVER_PORT=9001
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - internal-network
 
@@ -26,13 +27,15 @@ services:
       - BILLING_SERVICE_GRPC_PORT=9001
 
         # Database variables
-      - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_DATASOURCE_URL=jdbc:postgresql://patient-service-db:5432/db
       - SPRING_DATASOURCE_USERNAME=admin_user
+      - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_SQL_INIT_MODE=always
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - billing-service
+      - patient-service-db
 
     networks:
       - internal-network
@@ -49,7 +52,44 @@ services:
     networks:
       - internal-network
 
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.6.0
+    ports:
+      - "9092:9092"   # External client connections
+      - "9093:9093"   # Internal controller communication
+    environment:
+      # -----------------------------
+      # KRaft (Kafka without Zookeeper)
+      # -----------------------------
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+
+      # -----------------------------
+      # Listener settings
+      # -----------------------------
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092  # Hostdan qoşulmaq üçün
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # -----------------------------
+      # Metadata + logs
+      # -----------------------------
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+      CLUSTER_ID: "wK1vN2a4QjS1e8FZtVh3kA=="   # Random ID, it should not be changed
+
+      # -----------------------------
+      # Single node config
+      # -----------------------------
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+    networks:
+      - internal-network
 
 networks:
   internal-network:
-    driver: bridge
+    driver: bridge  # optional, this is the Docker's default network ddriver type
