@@ -1,0 +1,19 @@
+syntax = "proto3";  //version of proto
+
+option java_multiple_files = true;  //it's going to split our service request and response files all into different files, by default the code generation will put everything in the same file and that gets a bit messy, by splitting it out it just makes it easier to manage our code
+option java_package = "billing";   // this just ensures that the code generation puts all of our code in a package called billing and then this is what we can use from the code that we write ourselves to reference the service and response and so on
+
+service BillingService {
+  rpc CreateBillingAccount (BillingRequest) returns (BillingResponse);
+}
+
+message BillingRequest {  // by using the message keyword we are describing what the billing request is going to look like
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message BillingResponse  {
+  string accountId = 1;
+  string status = 2;
+}

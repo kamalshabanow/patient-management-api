@@ -1,0 +1,91 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.7'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id "com.google.protobuf" version "0.9.4"
+}
+
+group = 'com.pm'
+version = '0.0.1-SNAPSHOT'
+description = 'patient-service'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.25.5"
+	}
+
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:1.68.1"
+		}
+	}
+
+	generateProtoTasks {
+		all().each { task ->
+			task.plugins {
+				grpc {}
+			}
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs 'build/generated/source/proto/main/java',
+					'build/generated/source/proto/main/grpc'
+		}
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.release = 21
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.h2database:h2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
+	// gRPC transport layer (Netty-based)
+	implementation("io.grpc:grpc-netty-shaded:1.69.0")
+
+	// Protobuf support for gRPC
+	implementation("io.grpc:grpc-protobuf:1.69.0")
+
+	// Generates client/server stubs
+	implementation("io.grpc:grpc-stub:1.69.0")
+
+	// Required for Java 9+
+	compileOnly("org.apache.tomcat:annotations-api:6.0.53")
+
+	// Spring Boot integration for gRPC
+	implementation("net.devh:grpc-spring-boot-starter:3.1.0.RELEASE")
+
+	// Protobuf runtime
+	implementation("com.google.protobuf:protobuf-java:4.29.1")
+}
+
+
+

@@ -1,0 +1,2 @@
+### Deletes an entity
+DELETE localhost:4000/patients/9f192e8b-ae91-45a0-887e-f28b62b576f4
