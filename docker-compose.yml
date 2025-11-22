@@ -30,7 +30,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://patient-service-db:5432/db
       - SPRING_DATASOURCE_USERNAME=admin_user
       - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_SQL_INIT_MODE=always
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
@@ -50,6 +50,19 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - "5433:5432"
+    networks:
+      - internal-network
+
+  analytics-service:
+    container_name: analytics-service
+    build:
+      context: ./analytics-service
+      dockerfile: Dockerfile
+    image: analytics-service:latest
+    ports:
+      - "4002:4002"
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - internal-network
 

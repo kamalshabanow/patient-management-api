@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id "com.google.protobuf" version "0.9.4"
+}
+
+group = 'com.pm'
+version = '0.0.1-SNAPSHOT'
+description = 'analytics-service'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.5"
+    }
+
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.68.1"
+        }
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/java',
+                    'build/generated/source/proto/main/grpc'
+        }
+    }
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.named('generateProto')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 21
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+
+    // Protobuf & gRPC
+    implementation 'com.google.protobuf:protobuf-java:4.29.1'
+    implementation "io.grpc:grpc-netty-shaded:1.69.0"
+    implementation "io.grpc:grpc-protobuf:1.69.0"
+    implementation "io.grpc:grpc-stub:1.69.0"
+    implementation "net.devh:grpc-spring-boot-starter:3.1.0.RELEASE"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-kafka-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
