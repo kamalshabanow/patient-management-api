@@ -74,6 +74,8 @@ services:
     image: api-gateway:latest
     ports:
       - "4004:4004"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:4005
     networks:
       - internal-network
 
