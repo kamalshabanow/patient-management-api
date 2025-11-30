@@ -91,6 +91,9 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_SQL_INIT_MODE=always
+      - JWT_SECRET=he38bWpzBqaTLjaKMCQI+0UVQ6wWLbfXBr5RrSuBOtGFudLe1HltI/geo+9k7+LuQBRiqIaIlcmuT1TEI+m9Tw==
+    depends_on:
+      - auth-service-db
     networks:
       - internal-network
 
