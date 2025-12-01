@@ -9,7 +9,7 @@
     <file type="web" url="file://$PROJECT_DIR$/integration-tests" />
     <file type="web" url="file://$PROJECT_DIR$/patient-service" />
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
