@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.pm'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    //AWS
+    testImplementation 'software.amazon.awscdk:aws-cdk-lib:2.178.1'
+    testImplementation 'com.amazonaws:aws-java-sdk:1.12.780'
+}
+
+test {
+    useJUnitPlatform()
+}
