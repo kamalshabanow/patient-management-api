@@ -14,8 +14,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
     //AWS
-    testImplementation 'software.amazon.awscdk:aws-cdk-lib:2.178.1'
-    testImplementation 'com.amazonaws:aws-java-sdk:1.12.780'
+    implementation 'software.amazon.awscdk:aws-cdk-lib:2.178.1'
+    implementation 'com.amazonaws:aws-java-sdk:1.12.780'
 }
 
 test {
