@@ -21,3 +21,11 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register('LocalStackMain', JavaExec) {
+    group = "localstack"
+    description = "Runs the LocalStack CDK synthesizer"
+
+    mainClass = 'com.pm.stack.LocalStack'
+    classpath = sourceSets.main.runtimeClasspath
+}
