@@ -1128,7 +1128,7 @@
                   "instanceType": "kafka.m5.xlarge",
                   "brokerAzDistribution": "DEFAULT"
                 },
-                "clusterName": "kafka-cluster",
+                "clusterName": "kafa-cluster",
                 "kafkaVersion": "2.8.0",
                 "numberOfBrokerNodes": 1
               }
@@ -1189,17 +1189,17 @@
               "metadata": []
             }
           },
-          "AuthService Task": {
-            "id": "AuthService Task",
-            "path": "localstack/AuthService Task",
+          "AuthServiceTask": {
+            "id": "AuthServiceTask",
+            "path": "localstack/AuthServiceTask",
             "children": {
               "TaskRole": {
                 "id": "TaskRole",
-                "path": "localstack/AuthService Task/TaskRole",
+                "path": "localstack/AuthServiceTask/TaskRole",
                 "children": {
                   "ImportTaskRole": {
                     "id": "ImportTaskRole",
-                    "path": "localstack/AuthService Task/TaskRole/ImportTaskRole",
+                    "path": "localstack/AuthServiceTask/TaskRole/ImportTaskRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -1208,7 +1208,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AuthService Task/TaskRole/Resource",
+                    "path": "localstack/AuthServiceTask/TaskRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1240,7 +1240,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/AuthService Task/Resource",
+                "path": "localstack/AuthServiceTask/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -1260,7 +1260,7 @@
                           "logDriver": "awslogs",
                           "options": {
                             "awslogs-group": {
-                              "Ref": "AuthServiceLogGroupE6F44CE8"
+                              "Ref": "AuthServiceLogGroup34125B38"
                             },
                             "awslogs-stream-prefix": "auth-service",
                             "awslogs-region": {
@@ -1275,7 +1275,7 @@
                           },
                           {
                             "name": "JWT_SECRET",
-                            "value": "he38bWpzBqaTLjaKMCQI+0UVQ6wWLbfXBr5RrSuBOtGFudLe1HltI/geo+9k7+LuQBRiqIaIlcmuT1TEI+m9Tw=="
+                            "value": "Y2hhVEc3aHJnb0hYTzMyZ2ZqVkpiZ1RkZG93YWxrUkM="
                           },
                           {
                             "name": "SPRING_DATASOURCE_URL",
@@ -1297,7 +1297,7 @@
                                       "Endpoint.Port"
                                     ]
                                   },
-                                  ":auth-service-db"
+                                  "/auth-service-db"
                                 ]
                               ]
                             }
@@ -1339,11 +1339,11 @@
                     "cpu": "256",
                     "executionRoleArn": {
                       "Fn::GetAtt": [
-                        "AuthServiceTaskExecutionRoleCDC6D1DD",
+                        "AuthServiceTaskExecutionRoleA1258495",
                         "Arn"
                       ]
                     },
-                    "family": "localstackAuthServiceTaskC3F2A4B8",
+                    "family": "localstackAuthServiceTask4114E6CA",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -1351,7 +1351,7 @@
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
-                        "AuthServiceTaskTaskRoleB303B8E7",
+                        "AuthServiceTaskTaskRoleE466B974",
                         "Arn"
                       ]
                     }
@@ -1364,7 +1364,7 @@
               },
               "auth-serviceContainer": {
                 "id": "auth-serviceContainer",
-                "path": "localstack/AuthService Task/auth-serviceContainer",
+                "path": "localstack/AuthServiceTask/auth-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -1372,11 +1372,11 @@
               },
               "ExecutionRole": {
                 "id": "ExecutionRole",
-                "path": "localstack/AuthService Task/ExecutionRole",
+                "path": "localstack/AuthServiceTask/ExecutionRole",
                 "children": {
                   "ImportExecutionRole": {
                     "id": "ImportExecutionRole",
-                    "path": "localstack/AuthService Task/ExecutionRole/ImportExecutionRole",
+                    "path": "localstack/AuthServiceTask/ExecutionRole/ImportExecutionRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -1385,7 +1385,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AuthService Task/ExecutionRole/Resource",
+                    "path": "localstack/AuthServiceTask/ExecutionRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1410,11 +1410,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "localstack/AuthService Task/ExecutionRole/DefaultPolicy",
+                    "path": "localstack/AuthServiceTask/ExecutionRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/AuthService Task/ExecutionRole/DefaultPolicy/Resource",
+                        "path": "localstack/AuthServiceTask/ExecutionRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1428,7 +1428,7 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "AuthServiceLogGroupE6F44CE8",
+                                      "AuthServiceLogGroup34125B38",
                                       "Arn"
                                     ]
                                   }
@@ -1436,10 +1436,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "AuthServiceTaskExecutionRoleDefaultPolicy5998E2F8",
+                            "policyName": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3",
                             "roles": [
                               {
-                                "Ref": "AuthServiceTaskExecutionRoleCDC6D1DD"
+                                "Ref": "AuthServiceTaskExecutionRoleA1258495"
                               }
                             ]
                           }
@@ -1470,13 +1470,13 @@
               "metadata": []
             }
           },
-          "AuthServiceLogGroup ": {
-            "id": "AuthServiceLogGroup ",
-            "path": "localstack/AuthServiceLogGroup ",
+          "AuthServiceLogGroup": {
+            "id": "AuthServiceLogGroup",
+            "path": "localstack/AuthServiceLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/AuthServiceLogGroup /Resource",
+                "path": "localstack/AuthServiceLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
@@ -1543,7 +1543,7 @@
                     },
                     "serviceName": "auth-service",
                     "taskDefinition": {
-                      "Ref": "AuthServiceTask4EAF98F4"
+                      "Ref": "AuthServiceTask82E6680D"
                     }
                   }
                 },
@@ -1594,17 +1594,17 @@
               "metadata": []
             }
           },
-          "BillingService Task": {
-            "id": "BillingService Task",
-            "path": "localstack/BillingService Task",
+          "BillingServiceTask": {
+            "id": "BillingServiceTask",
+            "path": "localstack/BillingServiceTask",
             "children": {
               "TaskRole": {
                 "id": "TaskRole",
-                "path": "localstack/BillingService Task/TaskRole",
+                "path": "localstack/BillingServiceTask/TaskRole",
                 "children": {
                   "ImportTaskRole": {
                     "id": "ImportTaskRole",
-                    "path": "localstack/BillingService Task/TaskRole/ImportTaskRole",
+                    "path": "localstack/BillingServiceTask/TaskRole/ImportTaskRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -1613,7 +1613,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/BillingService Task/TaskRole/Resource",
+                    "path": "localstack/BillingServiceTask/TaskRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1645,7 +1645,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/BillingService Task/Resource",
+                "path": "localstack/BillingServiceTask/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -1670,7 +1670,7 @@
                           "logDriver": "awslogs",
                           "options": {
                             "awslogs-group": {
-                              "Ref": "BillingServiceLogGroup264E4053"
+                              "Ref": "BillingServiceLogGroupDD61E740"
                             },
                             "awslogs-stream-prefix": "billing-service",
                             "awslogs-region": {
@@ -1689,11 +1689,11 @@
                     "cpu": "256",
                     "executionRoleArn": {
                       "Fn::GetAtt": [
-                        "BillingServiceTaskExecutionRole010F23B5",
+                        "BillingServiceTaskExecutionRole11FE8DE2",
                         "Arn"
                       ]
                     },
-                    "family": "localstackBillingServiceTaskF0EBE678",
+                    "family": "localstackBillingServiceTaskAB0446C6",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -1701,7 +1701,7 @@
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
-                        "BillingServiceTaskTaskRoleA2AE67E9",
+                        "BillingServiceTaskTaskRole7A547BBF",
                         "Arn"
                       ]
                     }
@@ -1714,7 +1714,7 @@
               },
               "billing-serviceContainer": {
                 "id": "billing-serviceContainer",
-                "path": "localstack/BillingService Task/billing-serviceContainer",
+                "path": "localstack/BillingServiceTask/billing-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -1722,11 +1722,11 @@
               },
               "ExecutionRole": {
                 "id": "ExecutionRole",
-                "path": "localstack/BillingService Task/ExecutionRole",
+                "path": "localstack/BillingServiceTask/ExecutionRole",
                 "children": {
                   "ImportExecutionRole": {
                     "id": "ImportExecutionRole",
-                    "path": "localstack/BillingService Task/ExecutionRole/ImportExecutionRole",
+                    "path": "localstack/BillingServiceTask/ExecutionRole/ImportExecutionRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -1735,7 +1735,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/BillingService Task/ExecutionRole/Resource",
+                    "path": "localstack/BillingServiceTask/ExecutionRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1760,11 +1760,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "localstack/BillingService Task/ExecutionRole/DefaultPolicy",
+                    "path": "localstack/BillingServiceTask/ExecutionRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/BillingService Task/ExecutionRole/DefaultPolicy/Resource",
+                        "path": "localstack/BillingServiceTask/ExecutionRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -1778,7 +1778,7 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "BillingServiceLogGroup264E4053",
+                                      "BillingServiceLogGroupDD61E740",
                                       "Arn"
                                     ]
                                   }
@@ -1786,10 +1786,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "BillingServiceTaskExecutionRoleDefaultPolicy7DAFD041",
+                            "policyName": "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9",
                             "roles": [
                               {
-                                "Ref": "BillingServiceTaskExecutionRole010F23B5"
+                                "Ref": "BillingServiceTaskExecutionRole11FE8DE2"
                               }
                             ]
                           }
@@ -1820,13 +1820,13 @@
               "metadata": []
             }
           },
-          "BillingServiceLogGroup ": {
-            "id": "BillingServiceLogGroup ",
-            "path": "localstack/BillingServiceLogGroup ",
+          "BillingServiceLogGroup": {
+            "id": "BillingServiceLogGroup",
+            "path": "localstack/BillingServiceLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/BillingServiceLogGroup /Resource",
+                "path": "localstack/BillingServiceLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
@@ -1893,7 +1893,7 @@
                     },
                     "serviceName": "billing-service",
                     "taskDefinition": {
-                      "Ref": "BillingServiceTask98C62538"
+                      "Ref": "BillingServiceTask30D9C66E"
                     }
                   }
                 },
@@ -1944,17 +1944,17 @@
               "metadata": []
             }
           },
-          "AnalyticsService Task": {
-            "id": "AnalyticsService Task",
-            "path": "localstack/AnalyticsService Task",
+          "AnalyticsServiceTask": {
+            "id": "AnalyticsServiceTask",
+            "path": "localstack/AnalyticsServiceTask",
             "children": {
               "TaskRole": {
                 "id": "TaskRole",
-                "path": "localstack/AnalyticsService Task/TaskRole",
+                "path": "localstack/AnalyticsServiceTask/TaskRole",
                 "children": {
                   "ImportTaskRole": {
                     "id": "ImportTaskRole",
-                    "path": "localstack/AnalyticsService Task/TaskRole/ImportTaskRole",
+                    "path": "localstack/AnalyticsServiceTask/TaskRole/ImportTaskRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -1963,7 +1963,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AnalyticsService Task/TaskRole/Resource",
+                    "path": "localstack/AnalyticsServiceTask/TaskRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1995,7 +1995,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/AnalyticsService Task/Resource",
+                "path": "localstack/AnalyticsServiceTask/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -2015,7 +2015,7 @@
                           "logDriver": "awslogs",
                           "options": {
                             "awslogs-group": {
-                              "Ref": "AnalyticsServiceLogGroup3AD5D918"
+                              "Ref": "AnalyticsServiceLogGroupBD82F12A"
                             },
                             "awslogs-stream-prefix": "analytics-service",
                             "awslogs-region": {
@@ -2034,11 +2034,11 @@
                     "cpu": "256",
                     "executionRoleArn": {
                       "Fn::GetAtt": [
-                        "AnalyticsServiceTaskExecutionRole4E5ED4EB",
+                        "AnalyticsServiceTaskExecutionRoleBAF654B2",
                         "Arn"
                       ]
                     },
-                    "family": "localstackAnalyticsServiceTask78D944AA",
+                    "family": "localstackAnalyticsServiceTask353A5B10",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -2046,7 +2046,7 @@
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
-                        "AnalyticsServiceTaskTaskRole63CF90E4",
+                        "AnalyticsServiceTaskTaskRole1ABB10CB",
                         "Arn"
                       ]
                     }
@@ -2059,7 +2059,7 @@
               },
               "analytics-serviceContainer": {
                 "id": "analytics-serviceContainer",
-                "path": "localstack/AnalyticsService Task/analytics-serviceContainer",
+                "path": "localstack/AnalyticsServiceTask/analytics-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2067,11 +2067,11 @@
               },
               "ExecutionRole": {
                 "id": "ExecutionRole",
-                "path": "localstack/AnalyticsService Task/ExecutionRole",
+                "path": "localstack/AnalyticsServiceTask/ExecutionRole",
                 "children": {
                   "ImportExecutionRole": {
                     "id": "ImportExecutionRole",
-                    "path": "localstack/AnalyticsService Task/ExecutionRole/ImportExecutionRole",
+                    "path": "localstack/AnalyticsServiceTask/ExecutionRole/ImportExecutionRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -2080,7 +2080,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AnalyticsService Task/ExecutionRole/Resource",
+                    "path": "localstack/AnalyticsServiceTask/ExecutionRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -2105,11 +2105,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "localstack/AnalyticsService Task/ExecutionRole/DefaultPolicy",
+                    "path": "localstack/AnalyticsServiceTask/ExecutionRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/AnalyticsService Task/ExecutionRole/DefaultPolicy/Resource",
+                        "path": "localstack/AnalyticsServiceTask/ExecutionRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -2123,7 +2123,7 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "AnalyticsServiceLogGroup3AD5D918",
+                                      "AnalyticsServiceLogGroupBD82F12A",
                                       "Arn"
                                     ]
                                   }
@@ -2131,10 +2131,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "AnalyticsServiceTaskExecutionRoleDefaultPolicyA1F0BDF1",
+                            "policyName": "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928",
                             "roles": [
                               {
-                                "Ref": "AnalyticsServiceTaskExecutionRole4E5ED4EB"
+                                "Ref": "AnalyticsServiceTaskExecutionRoleBAF654B2"
                               }
                             ]
                           }
@@ -2165,13 +2165,13 @@
               "metadata": []
             }
           },
-          "AnalyticsServiceLogGroup ": {
-            "id": "AnalyticsServiceLogGroup ",
-            "path": "localstack/AnalyticsServiceLogGroup ",
+          "AnalyticsServiceLogGroup": {
+            "id": "AnalyticsServiceLogGroup",
+            "path": "localstack/AnalyticsServiceLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/AnalyticsServiceLogGroup /Resource",
+                "path": "localstack/AnalyticsServiceLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
@@ -2238,7 +2238,7 @@
                     },
                     "serviceName": "analytics-service",
                     "taskDefinition": {
-                      "Ref": "AnalyticsServiceTask1D268547"
+                      "Ref": "AnalyticsServiceTaskC3AFBC47"
                     }
                   }
                 },
@@ -2289,17 +2289,17 @@
               "metadata": []
             }
           },
-          "PatientService Task": {
-            "id": "PatientService Task",
-            "path": "localstack/PatientService Task",
+          "PatientServiceTask": {
+            "id": "PatientServiceTask",
+            "path": "localstack/PatientServiceTask",
             "children": {
               "TaskRole": {
                 "id": "TaskRole",
-                "path": "localstack/PatientService Task/TaskRole",
+                "path": "localstack/PatientServiceTask/TaskRole",
                 "children": {
                   "ImportTaskRole": {
                     "id": "ImportTaskRole",
-                    "path": "localstack/PatientService Task/TaskRole/ImportTaskRole",
+                    "path": "localstack/PatientServiceTask/TaskRole/ImportTaskRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -2308,7 +2308,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/PatientService Task/TaskRole/Resource",
+                    "path": "localstack/PatientServiceTask/TaskRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -2340,7 +2340,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/PatientService Task/Resource",
+                "path": "localstack/PatientServiceTask/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -2360,7 +2360,7 @@
                           "logDriver": "awslogs",
                           "options": {
                             "awslogs-group": {
-                              "Ref": "PatientServiceLogGroup2D74CACC"
+                              "Ref": "PatientServiceLogGroup4A5C3809"
                             },
                             "awslogs-stream-prefix": "patient-service",
                             "awslogs-region": {
@@ -2397,7 +2397,7 @@
                                       "Endpoint.Port"
                                     ]
                                   },
-                                  ":patient-service-db"
+                                  "/patient-service-db"
                                 ]
                               ]
                             }
@@ -2443,11 +2443,11 @@
                     "cpu": "256",
                     "executionRoleArn": {
                       "Fn::GetAtt": [
-                        "PatientServiceTaskExecutionRoleAB39B5A7",
+                        "PatientServiceTaskExecutionRole3782903B",
                         "Arn"
                       ]
                     },
-                    "family": "localstackPatientServiceTaskAA97F2AF",
+                    "family": "localstackPatientServiceTask2770C053",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -2455,7 +2455,7 @@
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
-                        "PatientServiceTaskTaskRoleFFFD1FE5",
+                        "PatientServiceTaskTaskRole4FB5B4E2",
                         "Arn"
                       ]
                     }
@@ -2468,7 +2468,7 @@
               },
               "patient-serviceContainer": {
                 "id": "patient-serviceContainer",
-                "path": "localstack/PatientService Task/patient-serviceContainer",
+                "path": "localstack/PatientServiceTask/patient-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2476,11 +2476,11 @@
               },
               "ExecutionRole": {
                 "id": "ExecutionRole",
-                "path": "localstack/PatientService Task/ExecutionRole",
+                "path": "localstack/PatientServiceTask/ExecutionRole",
                 "children": {
                   "ImportExecutionRole": {
                     "id": "ImportExecutionRole",
-                    "path": "localstack/PatientService Task/ExecutionRole/ImportExecutionRole",
+                    "path": "localstack/PatientServiceTask/ExecutionRole/ImportExecutionRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -2489,7 +2489,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/PatientService Task/ExecutionRole/Resource",
+                    "path": "localstack/PatientServiceTask/ExecutionRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -2514,11 +2514,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "localstack/PatientService Task/ExecutionRole/DefaultPolicy",
+                    "path": "localstack/PatientServiceTask/ExecutionRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/PatientService Task/ExecutionRole/DefaultPolicy/Resource",
+                        "path": "localstack/PatientServiceTask/ExecutionRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -2532,7 +2532,7 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "PatientServiceLogGroup2D74CACC",
+                                      "PatientServiceLogGroup4A5C3809",
                                       "Arn"
                                     ]
                                   }
@@ -2540,10 +2540,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "PatientServiceTaskExecutionRoleDefaultPolicyAC16B4BF",
+                            "policyName": "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E",
                             "roles": [
                               {
-                                "Ref": "PatientServiceTaskExecutionRoleAB39B5A7"
+                                "Ref": "PatientServiceTaskExecutionRole3782903B"
                               }
                             ]
                           }
@@ -2574,13 +2574,13 @@
               "metadata": []
             }
           },
-          "PatientServiceLogGroup ": {
-            "id": "PatientServiceLogGroup ",
-            "path": "localstack/PatientServiceLogGroup ",
+          "PatientServiceLogGroup": {
+            "id": "PatientServiceLogGroup",
+            "path": "localstack/PatientServiceLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/PatientServiceLogGroup /Resource",
+                "path": "localstack/PatientServiceLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
@@ -2647,7 +2647,7 @@
                     },
                     "serviceName": "patient-service",
                     "taskDefinition": {
-                      "Ref": "PatientServiceTaskD42D51FC"
+                      "Ref": "PatientServiceTaskF865B565"
                     }
                   }
                 },
@@ -2769,7 +2769,7 @@
                           "logDriver": "awslogs",
                           "options": {
                             "awslogs-group": {
-                              "Ref": "ApiGatewayLogGroup03E7561C"
+                              "Ref": "ApiGatewayLogGroupA9770429"
                             },
                             "awslogs-stream-prefix": "api-gateway",
                             "awslogs-region": {
@@ -2779,12 +2779,12 @@
                         },
                         "environment": [
                           {
-                            "name": "AUTH_SERVICE_URL",
-                            "value": "http://host.docker.internal:4005"
-                          },
-                          {
                             "name": "SPRING_PROFILES_ACTIVE",
                             "value": "prod"
+                          },
+                          {
+                            "name": "AUTH_SERVICE_URL",
+                            "value": "http://host.docker.internal:4005"
                           }
                         ]
                       }
@@ -2881,7 +2881,7 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "ApiGatewayLogGroup03E7561C",
+                                      "ApiGatewayLogGroupA9770429",
                                       "Arn"
                                     ]
                                   }
@@ -2923,13 +2923,13 @@
               "metadata": []
             }
           },
-          "ApiGatewayLogGroup ": {
-            "id": "ApiGatewayLogGroup ",
-            "path": "localstack/ApiGatewayLogGroup ",
+          "ApiGatewayLogGroup": {
+            "id": "ApiGatewayLogGroup",
+            "path": "localstack/ApiGatewayLogGroup",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/ApiGatewayLogGroup /Resource",
+                "path": "localstack/ApiGatewayLogGroup/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
                   "aws:cdk:cloudformation:props": {
