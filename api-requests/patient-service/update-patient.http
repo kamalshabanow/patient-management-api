@@ -1,10 +1,11 @@
 ### Updates a patient
-PUT http://localhost:4000/patients/123e4567-e89b-12d3-a456-426614174000
+PUT http://lb-2f7bf879.elb.localhost.localstack.cloud:4004/api/patients/4ff9e83d-2cd0-445d-8481-4d34beb7b23d
 Content-Type: application/json
 
 {
-  "name": "John Doe UPDATED",
-  "email": "john.doe@example.com",
-  "address": "123 main street",
-  "dateOfBirth": "1995-09-09"
+  "name": "Kamal Shabanov updated",
+  "email": "kamalshabano@example.com",
+  "address": "baki",
+  "dateOfBirth": "1995-09-09",
+  "registeredDate": "2004-03-03"
 }

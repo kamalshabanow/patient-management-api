@@ -3,15 +3,10 @@ package com.pm.stack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import software.amazon.awscdk.App;
-import software.amazon.awscdk.AppProps;
-import software.amazon.awscdk.BootstraplessSynthesizer;
-import software.amazon.awscdk.Duration;
-import software.amazon.awscdk.RemovalPolicy;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
-import software.amazon.awscdk.Token;
+import java.util.stream.Stream;
+import software.amazon.awscdk.*;
 import software.amazon.awscdk.services.ec2.ISubnet;
 import software.amazon.awscdk.services.ec2.InstanceClass;
 import software.amazon.awscdk.services.ec2.InstanceSize;
@@ -68,7 +63,7 @@ public class LocalStack extends Stack {
                         "auth-service",
                         List.of(4005),
                         authServiceDb,
-                        Map.of("JWT_SECRET", "Y2hhVEc3aHJnb0hYTzMyZ2ZqVkpiZ1RkZG93YWxrUkM="));
+                        Map.of("JWT_SECRET", "he38bWpzBqaTLjaKMCQI+0UVQ6wWLbfXBr5RrSuBOtGFudLe1HltI/geo+9k7+LuQBRiqIaIlcmuT1TEI+m9Tw=="));
 
         authService.getNode().addDependency(authDbHealthCheck);
         authService.getNode().addDependency(authServiceDb);
@@ -143,9 +138,9 @@ public class LocalStack extends Stack {
 
     private CfnCluster createMskCluster(){
         return CfnCluster.Builder.create(this, "MskCluster")
-                .clusterName("kafa-cluster")
-                .kafkaVersion("2.8.0")
-                .numberOfBrokerNodes(1)
+                .clusterName("kafka-cluster")
+                .kafkaVersion("3.9.x.kraft")
+                .numberOfBrokerNodes(2)
                 .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder()
                         .instanceType("kafka.m5.xlarge")
                         .clientSubnets(vpc.getPrivateSubnets().stream()
@@ -211,7 +206,7 @@ public class LocalStack extends Stack {
             ));
             envVars.put("SPRING_DATASOURCE_USERNAME", "admin_user");
             envVars.put("SPRING_DATASOURCE_PASSWORD",
-                    db.getSecret().secretValueFromJson("password").toString());
+                    Objects.requireNonNull(db.getSecret()).secretValueFromJson("password").toString());
             envVars.put("SPRING_JPA_HIBERNATE_DDL_AUTO", "update");
             envVars.put("SPRING_SQL_INIT_MODE", "always");
             envVars.put("SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT", "60000");
@@ -242,7 +237,7 @@ public class LocalStack extends Stack {
                                 "SPRING_PROFILES_ACTIVE", "prod",
                                 "AUTH_SERVICE_URL", "http://host.docker.internal:4005"
                         ))
-                        .portMappings(List.of(4004).stream()
+                        .portMappings(Stream.of(4004)
                                 .map(port -> PortMapping.builder()
                                         .containerPort(port)
                                         .hostPort(port)

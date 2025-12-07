@@ -658,9 +658,9 @@
      ],
      "InstanceType": "kafka.m5.xlarge"
     },
-    "ClusterName": "kafa-cluster",
-    "KafkaVersion": "2.8.0",
-    "NumberOfBrokerNodes": 1
+    "ClusterName": "kafka-cluster",
+    "KafkaVersion": "3.9.x.kraft",
+    "NumberOfBrokerNodes": 2
    }
   },
   "PatientManagementCluster98E10F8D": {
@@ -704,7 +704,7 @@
        },
        {
         "Name": "JWT_SECRET",
-        "Value": "Y2hhVEc3aHJnb0hYTzMyZ2ZqVkpiZ1RkZG93YWxrUkM="
+        "Value": "he38bWpzBqaTLjaKMCQI+0UVQ6wWLbfXBr5RrSuBOtGFudLe1HltI/geo+9k7+LuQBRiqIaIlcmuT1TEI+m9Tw=="
        },
        {
         "Name": "SPRING_DATASOURCE_URL",

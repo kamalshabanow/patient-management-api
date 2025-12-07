@@ -1,2 +1,2 @@
 ### Deletes an entity
-DELETE localhost:4000/patients/9f192e8b-ae91-45a0-887e-f28b62b576f4
+DELETE lb-2f7bf879.elb.localhost.localstack.cloud:4004/api/patients/223e4567-e89b-12d3-a456-426614174014
