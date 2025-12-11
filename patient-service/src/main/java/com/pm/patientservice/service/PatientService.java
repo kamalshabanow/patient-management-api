@@ -39,7 +39,9 @@ public class PatientService {
             int page, int size, String sort, String sortField, String searchValue
     ) {
 
-        Pageable pageable = PageRequest.of(page, size,
+        // request -> the page must be started from = 1;
+        // pageable -> page = 0
+        Pageable pageable = PageRequest.of(page - 1, size,
                 sort.equalsIgnoreCase("desc")
                         ? Sort.by(sortField).descending()
                         : Sort.by(sortField).ascending());
@@ -59,7 +61,7 @@ public class PatientService {
 
         return new PagedPatientResponseDTO(
                 patientResponseDTOs,
-                patientPage.getNumber(),
+                patientPage.getNumber() + 1,  // this number is zero index based, we need to add 1
                 patientPage.getSize(),
                 patientPage.getTotalPages(),
                 (int) patientPage.getTotalElements()
