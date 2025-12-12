@@ -150,6 +150,14 @@ services:
     networks:
       - internal-network
 
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - internal-network
+
 networks:
   internal-network:
     driver: bridge  # optional, this is the Docker's default network ddriver type
