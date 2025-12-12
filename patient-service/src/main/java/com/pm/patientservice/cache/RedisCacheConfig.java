@@ -37,6 +37,8 @@ public class RedisCacheConfig {
         GenericJackson2JsonRedisSerializer serializer =
                 new GenericJackson2JsonRedisSerializer(objectMapper);
 
+        // we set some rules here for caching
+        // This class tells RedisCacheManager how do we serialize keys, values. How long does caching take and so on
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(10))
                 .disableCachingNullValues()
