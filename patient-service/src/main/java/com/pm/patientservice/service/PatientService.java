@@ -43,7 +43,7 @@ public class PatientService {
     @Cacheable(
             value = "patients",
             key = "#page + '-' + #size + '-' + #sort + '-' + #sortField",
-            condition = "#searchValue == ''"
+            condition = "#searchValue == null || #searchValue.isBlank()"
     )
     public PagedPatientResponseDTO getPatients(
             int page, int size, String sort, String sortField, String searchValue
