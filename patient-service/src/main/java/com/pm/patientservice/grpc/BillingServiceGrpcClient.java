@@ -34,7 +34,8 @@ public class BillingServiceGrpcClient {
 
 
     @CircuitBreaker(name = "billingService", fallbackMethod = "billingFallback")
-    @Retry(name = "billingRetry")  //by default, the retry count is 3. If the retry fails,then the circuit opens, and it will trigger the circuit breaker in the above ^
+    @Retry(name = "billingRetry")
+    //by default, the retry count is 3. If the retry fails,then the circuit opens, and it will trigger the circuit breaker in the above ^
     public BillingResponse createBillingAccount(String patientId, String name, String email) {
         BillingRequest request = BillingRequest.newBuilder()
                 .setPatientId(patientId)
@@ -42,7 +43,7 @@ public class BillingServiceGrpcClient {
                 .setEmail(email)
                 .build();
         try {
-            BillingResponse response =  blockingStub.createBillingAccount(request);
+            BillingResponse response = blockingStub.createBillingAccount(request);
             log.info("Received response from from billing service via gRPC: {}", response);
             return response;
         } catch (Exception e) {
@@ -50,5 +51,17 @@ public class BillingServiceGrpcClient {
             // In a case that gives error that throws exception or default answer
             return BillingResponse.newBuilder().setStatus("FAILED").build();
         }
+    }
+
+    public BillingResponse billingFallback(String patientId, String name, String email, Throwable t) {
+        log.warn("[CIRCUIT BREAKER]: Billing Service is unavailable. " +
+                "Triggered + fallback: {}", t.getMessage());
+
+        kafkaProducer.sendBillingAccountEvent(patientId, name, email);
+
+        return BillingResponse.newBuilder()
+                .setAccountId("")
+                .setStatus("PENDING")
+                .build();
     }
 }
