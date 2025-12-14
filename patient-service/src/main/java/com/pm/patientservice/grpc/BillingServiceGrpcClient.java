@@ -3,6 +3,7 @@ package com.pm.patientservice.grpc;
 import billing.BillingRequest;
 import billing.BillingResponse;
 import billing.BillingServiceGrpc;
+import com.pm.patientservice.kafka.KafkaProducer;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.grpc.ManagedChannel;
@@ -18,10 +19,12 @@ public class BillingServiceGrpcClient {
     private static final Logger log = LoggerFactory.getLogger(
             BillingServiceGrpcClient.class);
     private final BillingServiceGrpc.BillingServiceBlockingStub blockingStub;
+    private final KafkaProducer kafkaProducer;
 
     public BillingServiceGrpcClient(
             @Value("${billing.service.address:localhost}") String serverAddress,
-            @Value("${billing.service.grpc.port:9001}") int serverPort) {
+            @Value("${billing.service.grpc.port:9001}") int serverPort,
+            KafkaProducer kafkaProducer) {
 
         log.info("Connecting to Billing Service GRPC service at {}:{}",
                 serverAddress, serverPort);
@@ -30,6 +33,7 @@ public class BillingServiceGrpcClient {
                 serverPort).usePlaintext().build();
 
         blockingStub = BillingServiceGrpc.newBlockingStub(channel);
+        this.kafkaProducer = kafkaProducer;
     }
 
 
