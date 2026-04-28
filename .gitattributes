@@ -1,5 +1,11 @@
+# Ignore generated/build files from GitHub language statistics
 **/target/** linguist-generated=true
 **/build/** linguist-generated=true
 **/out/** linguist-generated=true
+**/dist/** linguist-generated=true
 **/coverage/** linguist-generated=true
 **/reports/** linguist-generated=true
+
+# Optional: ignore IntelliJ project files
+.idea/** linguist-generated=true
+*.iml linguist-generated=true
