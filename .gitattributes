@@ -1,0 +1,5 @@
+**/target/** linguist-generated=true
+**/build/** linguist-generated=true
+**/out/** linguist-generated=true
+**/coverage/** linguist-generated=true
+**/reports/** linguist-generated=true
